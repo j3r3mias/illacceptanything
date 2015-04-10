@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+using System;
+>>>>>>> upstream/master
 using System.Collections.Generic;
 
 namespace BugFixingSim
@@ -10,7 +14,7 @@ namespace BugFixingSim
             Console.WriteLine("Bugfixing sim 0.0.1-alpha, fix bugs yourself!");
             Console.WriteLine();
             int task = 1;
-            int bugfixes=0;
+            int bugfixes = 0;
             var memleak = new List<byte[]>();
             while (true)
             {
@@ -42,8 +46,21 @@ namespace BugFixingSim
 
         private void StackOverflow()
         {
-            //because i'm too lazy to throw the StackOverflowException myself
-            StackOverflow();
+            try
+            {
+                //because i'm too lazy to throw the StackOverflowException myself
+                StackOverflow();
+            }
+#if ASPNET50
+            catch (StackOverflowException soe)
+#else
+            catch (Exception e)
+#endif
+            {
+                // what better way is there to handle this great exception than to catch it? :P
+                // at least I also added the coreCLR fallback.
+            }
+>>>>>>> upstream/master
         }
 
         private bool CheckBugfix(string line)
